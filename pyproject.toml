@@ -1,6 +1,6 @@
 [project]
 name = "simple-null-device-redirector"
-version = "0.1.0"
+version = "0.1.1"
 description = "Redirects stdout and stderr to the null device within a context block"
 requires-python = ">=3.10"
 dependencies = []
