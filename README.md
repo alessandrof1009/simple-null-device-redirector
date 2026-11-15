@@ -32,3 +32,10 @@ By default (`restore=True`) the originals are reinstated on exit, including when
 The yielded file objects are text streams opened with `encoding="utf-8"`. They are real file objects (they expose `fileno()`, `flush()`, `write()`), not `io.StringIO` wrappers, so calls like `os.fstat(stream.fileno())` work and report `os.devnull`.
 
 `restore` is the only keyword argument. There is no streaming of captured output back to the caller, no per-stream opt-out, and no descriptor-level mode. If you need any of those, compose this with `contextlib.redirect_stdout` or write the four lines yourself.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
